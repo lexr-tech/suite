@@ -3,6 +3,7 @@ from packaging import version as version_parser
 import os
 import subprocess
 import sys
+import tempfile
 
 installed_version = "v1.0.0"
 
@@ -38,6 +39,16 @@ def get_latest_version_from_github(repo_url):
     latest_version_tag = response.json()["tag_name"]
     return latest_version_tag
 
+def clone_repo_and_run_installer(repo_url):
+    with tempfile.TemporaryDirectory() as temp_dir:
+        print(f"Cloning repository to temporary directory: {temp_dir}")
+        clone_command = f"git clone {repo_url} \"{temp_dir}\""
+        subprocess.check_call(clone_command, shell=True)
+
+        installer_path = os.path.join(temp_dir, "admin", "installer.py")
+        print(f"Running installer from: {installer_path}")
+        subprocess.check_call([sys.executable, installer_path])
+
 def main():
     try:
         latest_version = get_latest_version_from_github("https://github.com/lexr-tech/suite")
@@ -54,9 +65,7 @@ def main():
             if user_input != 'y' and user_input != '':
                 input("Exiting the script. If you have questions, please contact the LEXR Tech team.")
             else:
-                script_path = r"C:\Users\%USERNAME%\LEXR Tech\Admin\installer.py"
-                command = f'start cmd.exe /k python "{script_path}"'
-                subprocess.run(command, shell=True)
+                clone_repo_and_run_installer("https://github.com/lexr-tech/suite")
         elif version_parser.parse(latest_version) == version_parser.parse(installed_version):
             input("Installed version is up-to-date. Exiting.")
         else:
