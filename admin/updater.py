@@ -5,7 +5,7 @@ import subprocess
 import sys
 import tempfile
 
-installed_version = "v1.0.0"
+installed_version = "v1.1.0"
 
 def print_boxed_message(messages, padding=2):
     max_length = max(len(message) for message in messages) + (padding * 2)

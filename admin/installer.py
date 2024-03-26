@@ -142,6 +142,11 @@ def main():
         except ImportError:
             install_python_module('plyer')
 
+        try:
+            import pdf2docx
+        except ImportError:
+            install_python_module('pdf2docx')            
+
         setup_lexr_suite()
         create_startup_shortcut(os.path.expandvars(r"C:\Users\%USERNAME%\LEXR Tech\shortcuts\lexr_shortcuts.ahk"), "lexr_shortcuts")
 
