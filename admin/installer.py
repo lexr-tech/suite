@@ -102,13 +102,18 @@ def create_startup_shortcut(script_path, shortcut_name):
     shortcut.IconLocation = script_path
     shortcut.save()
 
+import os
+
 def setup_article_finder():
-    article_finder_path = os.path.expandvars(r"C:\Users\%USERNAME%\LEXR Tech\scripts\article_finder")
+    article_finder_path = os.path.expandvars(r"C:\Users\%USERNAME%\LEXR Tech\Scripts\article_finder")
+    jurisdiction_file_path = os.path.join(article_finder_path, "jurisdiction.txt")
     
-    if not os.path.exists(article_finder_path):
-        os.makedirs(article_finder_path)
+    if not os.path.exists(jurisdiction_file_path):
+        if not os.path.exists(article_finder_path):
+            os.makedirs(article_finder_path)
         
         jurisdiction = None
+        print("Setting up article finder...")
         while jurisdiction not in {"1", "2"}:
             print("Please select your preferred jurisdiction:\n1. Switzerland\n2. Germany")
             jurisdiction = input()
@@ -116,7 +121,7 @@ def setup_article_finder():
                 print("Invalid selection. Please enter 1 for Switzerland or 2 for Germany.")
         
         if jurisdiction == "1":
-            with open(os.path.join(article_finder_path, "jurisdiction.txt"), "w") as file:
+            with open(jurisdiction_file_path, "w") as file:
                 file.write("ch")
                 
             language = None
@@ -131,7 +136,7 @@ def setup_article_finder():
                 file.write(lang_code)
         
         elif jurisdiction == "2":
-            with open(os.path.join(article_finder_path, "jurisdiction.txt"), "w") as file:
+            with open(jurisdiction_file_path, "w") as file:
                 file.write("de")
             print("Article finder for Germany currently only supports German.")
         
@@ -183,7 +188,7 @@ def main():
 
         setup_lexr_suite()
         setup_article_finder()
-        create_startup_shortcut(os.path.expandvars(r"C:\Users\%USERNAME%\LEXR Tech\shortcuts\lexr_shortcuts.ahk"), "lexr_shortcuts")
+        create_startup_shortcut(os.path.expandvars(r"C:\Users\%USERNAME%\LEXR Tech\Shortcuts\lexr_shortcuts.ahk"), "lexr_shortcuts")
         input("LEXR Suite setup completed successfully. You can now exit this script.")
 
     except Exception as e:
