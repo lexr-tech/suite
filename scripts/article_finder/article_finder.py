@@ -69,7 +69,7 @@ def build_url(law_code, language, article_number, article_suffix, jurisdiction):
         return f"https://www.fedlex.admin.ch/eli/cc/1993/1798_1798_1798/{language}#art_{article_number}{article_suffix}"
     ### GERMANY ###
     # Basic Law
-    elif law_code in ["bb"]:
+    elif law_code in ["gg"]:
         return f"https://www.gesetze-im-internet.de/gg/art_{article_number}{article_suffix}.html"
     # Civil Code
     elif law_code in ["bgb"]:
@@ -93,12 +93,18 @@ def find_article():
         return
     
     clipboard_content = pyperclip.paste().strip()
-    print(f"Clipboard content: {clipboard_content}")
+    print(f"Original clipboard content: {clipboard_content}")
+
+    # Clean up clipboard content
+    clipboard_content = re.sub(r'\bal\.\s*\d+', '', clipboard_content, flags=re.IGNORECASE)
+    clipboard_content = re.sub(r'\bAbs\.?\s*\d+', '', clipboard_content, flags=re.IGNORECASE)
+    clipboard_content = re.sub(r'\bpara\.\s*\d+', '', clipboard_content, flags=re.IGNORECASE)
+    print(f"Cleaned clipboard content: {clipboard_content}")
     
     # Check if input is law code only
     law_code_only_match = re.fullmatch(r'[A-Z]+', clipboard_content, re.IGNORECASE) 
     # Check if input is article
-    article_match = re.search(r'\b(?:Art(?:icle)?\.?\s*)?(\d+)([a-z])?(?:\s*al\.\s*\d+)?(?:\s*Abs\.?\s*\d+)?(?:.*?\b([A-Z]{2,})\b)?.*', clipboard_content, re.IGNORECASE)
+    article_match = re.search(r'\b(?:Art(?:icle)?\.?\s*)?(\d+)([a-z])?(?:.*?\b([A-Z]{2,})\b)?.*', clipboard_content, re.IGNORECASE)
 
     if law_code_only_match:
         law_code = law_code_only_match.group().lower()
