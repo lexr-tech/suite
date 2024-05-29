@@ -2,7 +2,7 @@ import os
 import pyperclip
 import sys
 from plyer import notification
-from PyPDF2 import PdfMerger
+import fitz
 import ctypes
 
 lexr_icon_path = os.path.expandvars(r"C:\Users\%USERNAME%\LEXR Tech\Icon\lexr_icon.ico")
@@ -24,15 +24,19 @@ def combine_pdfs_in_folder(folder_path):
         return
 
     pdf_files.sort()
-    merger = PdfMerger()
+    output_path = os.path.join(folder_path, "Combined.pdf")
+
+    # Create a new PDF document
+    output_pdf = fitz.open()
 
     for pdf_file in pdf_files:
         pdf_path = os.path.join(folder_path, pdf_file)
-        merger.append(pdf_path)
+        pdf_document = fitz.open(pdf_path)
+        output_pdf.insert_pdf(pdf_document)
+        pdf_document.close()
 
-    output_path = os.path.join(folder_path, "Combined.pdf")
-    merger.write(output_path)
-    merger.close()
+    output_pdf.save(output_path)
+    output_pdf.close()
 
     notification.notify(
         title="LEXR PDF Merger",

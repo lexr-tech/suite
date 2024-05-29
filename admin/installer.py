@@ -179,7 +179,7 @@ def main():
         try:
             import pdf2docx
         except ImportError:
-            install_python_module('pdf2docx')            
+            install_python_module('pdf2docx')           
 
         setup_lexr_suite()
         setup_article_finder()
