@@ -115,7 +115,7 @@ def setup_article_finder():
         jurisdiction = None
         print("Setting up article finder...")
         while jurisdiction not in {"1", "2"}:
-            print("Please select your preferred jurisdiction:\n1. Switzerland\n2. Germany")
+            print("Please select your preferred jurisdiction (this can changed later):\n1. Switzerland\n2. Germany")
             jurisdiction = input()
             if jurisdiction not in {"1", "2"}:
                 print("Invalid selection. Please enter 1 for Switzerland or 2 for Germany.")
@@ -126,7 +126,7 @@ def setup_article_finder():
                 
             language = None
             while language not in {"1", "2", "3", "4"}:
-                print("Please select your preferred language:\n1. English\n2. German\n3. French\n4. Italian")
+                print("Please select your preferred language (this can be changed later):\n1. English\n2. German\n3. French\n4. Italian")
                 language = input()
                 if language not in {"1", "2", "3", "4"}:
                     print("Invalid selection. Please enter a number between 1 and 4.")
