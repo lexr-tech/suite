@@ -27,7 +27,7 @@ translated_text = translator.translate_text(text_to_translate, target_lang="FR",
 pyperclip.copy(translated_text.text)
 notification.notify(
     title="LEXR Translator",
-    message='Translated to FR and copied to clipboard.',
+    message=f'{translated_text}',
     app_icon=lexr_icon_path,
     timeout=10
 )
