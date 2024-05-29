@@ -67,8 +67,6 @@ def setup_lexr_suite():
     shortcuts_dest = os.path.expandvars(r"C:\Users\%USERNAME%\LEXR Tech\Shortcuts")
     copy_contents(shortcuts_src, shortcuts_dest)
 
-    input("LEXR Suite setup completed successfully. You can now exit this script.")
-
 def is_installed(tool):
     try:
         subprocess.run(['where', tool], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
@@ -93,6 +91,7 @@ def install_python_module(module):
         input(f"You chose not to install {module}. Exiting.")
 
 def create_startup_shortcut(script_path, shortcut_name):
+    import win32com.client
     startup_folder = os.path.expandvars(r'%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup')
 
     shell = win32com.client.Dispatch("WScript.Shell")
@@ -102,6 +101,41 @@ def create_startup_shortcut(script_path, shortcut_name):
     shortcut.WorkingDirectory = os.path.dirname(script_path)
     shortcut.IconLocation = script_path
     shortcut.save()
+
+def setup_article_finder():
+    article_finder_path = os.path.expandvars(r"C:\Users\%USERNAME%\LEXR Tech\scripts\article_finder")
+    
+    if not os.path.exists(article_finder_path):
+        os.makedirs(article_finder_path)
+        
+        jurisdiction = None
+        while jurisdiction not in {"1", "2"}:
+            print("Please select your preferred jurisdiction:\n1. Switzerland\n2. Germany")
+            jurisdiction = input()
+            if jurisdiction not in {"1", "2"}:
+                print("Invalid selection. Please enter 1 for Switzerland or 2 for Germany.")
+        
+        if jurisdiction == "1":
+            with open(os.path.join(article_finder_path, "jurisdiction.txt"), "w") as file:
+                file.write("ch")
+                
+            language = None
+            while language not in {"1", "2", "3", "4"}:
+                print("Please select your preferred language:\n1. English\n2. German\n3. French\n4. Italian")
+                language = input()
+                if language not in {"1", "2", "3", "4"}:
+                    print("Invalid selection. Please enter a number between 1 and 4.")
+            
+            lang_code = {"1": "en", "2": "de", "3": "fr", "4": "it"}[language]
+            with open(os.path.join(article_finder_path, "language.txt"), "w") as file:
+                file.write(lang_code)
+        
+        elif jurisdiction == "2":
+            with open(os.path.join(article_finder_path, "jurisdiction.txt"), "w") as file:
+                file.write("de")
+            print("Article finder for Germany currently only supports German.")
+        
+        print("Article finder was setup successfully.")
 
 def main():
     try:
@@ -145,10 +179,12 @@ def main():
         try:
             import pdf2docx
         except ImportError:
-            install_python_module('pdf2docx')            
+            install_python_module('pdf2docx')           
 
         setup_lexr_suite()
+        setup_article_finder()
         create_startup_shortcut(os.path.expandvars(r"C:\Users\%USERNAME%\LEXR Tech\shortcuts\lexr_shortcuts.ahk"), "lexr_shortcuts")
+        input("LEXR Suite setup completed successfully. You can now exit this script.")
 
     except Exception as e:
         input(f"Error: {str(e)}. Please contact the LEXR Tech team.")
