@@ -39,8 +39,8 @@ def combine_pdfs_in_folder(folder_path):
     output_pdf.close()
 
     notification.notify(
-        title="LEXR PDF Merger",
-        message=f"PDFs combined into {output_path}",
+        title="LEXR Doconverter",
+        message=f"PDFs merged into {output_path}",
         app_icon=lexr_icon_path,
         timeout=10
     )

@@ -46,8 +46,11 @@ def set_last_law_code(law_code):
 
 def build_url(law_code, language, article_number, article_suffix, jurisdiction):
     ### SWITZERLAND ###
+    # Federal Constitution
+    if law_code in ["fc", "bv", "cst"]:
+        return f"https://www.fedlex.admin.ch/eli/cc/1999/404/{language}#art_{article_number}{article_suffix}"
     # Code of Obligations
-    if law_code in ["co", "or"]:
+    elif law_code in ["co", "or"]:
         return f"https://www.fedlex.admin.ch/eli/cc/27/317_321_377/{language}#art_{article_number}{article_suffix}"
     # Civil Code
     elif law_code in ["cc", "zgb"]:
@@ -65,6 +68,9 @@ def build_url(law_code, language, article_number, article_suffix, jurisdiction):
     elif law_code in ["copa", "urg", "lda"]:
         return f"https://www.fedlex.admin.ch/eli/cc/1993/1798_1798_1798/{language}#art_{article_number}{article_suffix}"
     ### GERMANY ###
+    # Basic Law
+    elif law_code in ["bb"]:
+        return f"https://www.gesetze-im-internet.de/gg/art_{article_number}{article_suffix}.html"
     # Civil Code
     elif law_code in ["bgb"]:
         return f"https://www.gesetze-im-internet.de/bgb/__{article_number}{article_suffix}.html"
@@ -92,7 +98,7 @@ def find_article():
     # Check if input is law code only
     law_code_only_match = re.fullmatch(r'[A-Z]+', clipboard_content, re.IGNORECASE) 
     # Check if input is article
-    article_match = re.search(r'\b(?:Art(?:icle)?\.?\s*)?(\d+)([a-z])?(?:\s*al\.\s*\d+)?(?:.*?\b([A-Z]{2,})\b)?.*', clipboard_content, re.IGNORECASE)
+    article_match = re.search(r'\b(?:Art(?:icle)?\.?\s*)?(\d+)([a-z])?(?:\s*al\.\s*\d+)?(?:\s*Abs\.?\s*\d+)?(?:.*?\b([A-Z]{2,})\b)?.*', clipboard_content, re.IGNORECASE)
 
     if law_code_only_match:
         law_code = law_code_only_match.group().lower()

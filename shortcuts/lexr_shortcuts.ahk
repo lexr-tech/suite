@@ -1,4 +1,6 @@
-﻿^+P:: ; Ctrl+Shift+P
+﻿#SingleInstance Force
+
+^+P:: ; Ctrl+Shift+P
 Run, pythonw "C:\Users\%USERNAME%\LEXR Tech\Scripts\doconverter\doconverter_docx2pdf.py"
 Return
 
@@ -22,6 +24,6 @@ Return
 Run, pythonw "C:\Users\%USERNAME%\LEXR Tech\Scripts\translator\translator_fr.py"
 Return
 
-^+A:: ; Ctrl+Alt+A
+^+A:: ; Ctrl+Shift+A
 Run, pythonw "C:\Users\%USERNAME%\LEXR Tech\Scripts\article_finder\article_finder.py"
 Return
