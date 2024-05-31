@@ -126,7 +126,7 @@ def setup_article_finder():
                 
             language = None
             while language not in {"1", "2", "3", "4"}:
-                print("Please select your preferred language (this can be changed later):\n1. English\n2. German\n3. French\n4. Italian")
+                print("Please select your preferred language for viewing the articles (this can be changed later):\n1. English\n2. German\n3. French\n4. Italian")
                 language = input()
                 if language not in {"1", "2", "3", "4"}:
                     print("Invalid selection. Please enter a number between 1 and 4.")

@@ -57,10 +57,13 @@ def build_url(law_code, language, article_number, article_suffix, jurisdiction):
         return f"https://www.fedlex.admin.ch/eli/cc/24/233_245_233/{language}#art_{article_number}{article_suffix}"
     # Criminal Code
     elif law_code in ["scc", "stgb", "cp"]:
-        if jurisdiction == "ch":
+        if law_code != "stgb"
             return f"https://www.fedlex.admin.ch/eli/cc/54/757_781_799/{language}#art_{article_number}{article_suffix}"
-        elif jurisdiction == "de":
-            return f"https://www.gesetze-im-internet.de/stgb/__{article_number}{article_suffix}.html"
+        else:
+            if jurisdiction == "ch":
+                return f"https://www.fedlex.admin.ch/eli/cc/54/757_781_799/{language}#art_{article_number}{article_suffix}"
+            elif jurisdiction == "de":
+                return f"https://www.gesetze-im-internet.de/stgb/__{article_number}{article_suffix}.html"
     # Data Protection
     elif law_code in ["fadp", "dsg", "lpd"]:
         return f"https://www.fedlex.admin.ch/eli/cc/2022/491/{language}#art_{article_number}{article_suffix}"
