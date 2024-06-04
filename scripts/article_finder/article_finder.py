@@ -82,7 +82,11 @@ def build_url(law_code, language, article_number, article_suffix, jurisdiction):
         return f"https://www.gesetze-im-internet.de/bdsg_2018/__{article_number}{article_suffix}.html"
     # Copyright
     elif law_code in ["urhg"]:
-        return f"https://www.gesetze-im-internet.de/urhg/__{article_number}{article_suffix}.html"                     
+        return f"https://www.gesetze-im-internet.de/urhg/__{article_number}{article_suffix}.html"
+    ### EU ###
+    # GDPR
+    elif law_code in ["gdpr", "dsgvo", "rgpd"]:
+        return f"https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679#art_{article_number}"                    
 
 def find_article():
     jurisdiction = get_jurisdiction()
