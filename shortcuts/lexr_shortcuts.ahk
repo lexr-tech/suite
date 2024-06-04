@@ -24,6 +24,14 @@ Return
 Run, pythonw "C:\Users\%USERNAME%\LEXR Tech\Scripts\translator\translator_fr.py"
 Return
 
+^!I:: ; Ctrl+Alt+I
+Run, pythonw "C:\Users\%USERNAME%\LEXR Tech\Scripts\translator\translator_it.py"
+Return
+
+^!G:: ; Ctrl+Alt+G
+Run, pythonw "C:\Users\%USERNAME%\LEXR Tech\Scripts\translator\translator_el.py"
+Return
+
 ^+A:: ; Ctrl+Shift+A
 Run, pythonw "C:\Users\%USERNAME%\LEXR Tech\Scripts\article_finder\article_finder.py"
 Return

@@ -57,7 +57,7 @@ def build_url(law_code, language, article_number, article_suffix, jurisdiction):
         return f"https://www.fedlex.admin.ch/eli/cc/24/233_245_233/{language}#art_{article_number}{article_suffix}"
     # Criminal Code
     elif law_code in ["scc", "stgb", "cp"]:
-        if law_code != "stgb"
+        if law_code != "stgb":
             return f"https://www.fedlex.admin.ch/eli/cc/54/757_781_799/{language}#art_{article_number}{article_suffix}"
         else:
             if jurisdiction == "ch":
