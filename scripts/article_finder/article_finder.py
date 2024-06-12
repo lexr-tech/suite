@@ -70,6 +70,11 @@ def build_url(law_code, language, article_number, article_suffix, jurisdiction):
     # Copyright
     elif law_code in ["copa", "urg", "lda"]:
         return f"https://www.fedlex.admin.ch/eli/cc/1993/1798_1798_1798/{language}#art_{article_number}{article_suffix}"
+    # Commercial Register Ordinance
+    elif law_code in ["hregv", "orc"]:
+        if language == "en"
+            language = "de"
+        return f"https://www.fedlex.admin.ch/eli/cc/2007/686/{language}#art_{article_number}{article_suffix}"    
     ### GERMANY ###
     # Basic Law
     elif law_code in ["gg"]:
